@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     Button reproducir, pausa, detener;
@@ -80,11 +82,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // habilitar el botón Reproducir, deshabilitar los botones Pausa y Detener
                 // volver a poner como texto del botón de pausa la cadena Pausa
-                reproducir.setEnabled(true);
-                pausa.setEnabled(false);
-                pausa.setText("Pausa");
-                detener.setEnabled(false);
-                mp.stop();
+                try {
+                    reproducir.setEnabled(true);
+                    pausa.setEnabled(false);
+                    pausa.setText("Pausa");
+                    detener.setEnabled(false);
+                    mp.stop();
+                    mp.prepare();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
